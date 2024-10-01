@@ -2,17 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flex Panels 💪</title>
   <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
-  <link rel="icon" href="https://fav.farm/🔥" />
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+<body>
   <style>
     html {
       box-sizing: border-box;
-      back
-      justify-content: center;
+      background: #ffc600;
+      font-family: 'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    .panels {
+      min-height: 100vh;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
+    }
+
+    .panel {
+      background: #6B0F9C;
+      box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
+      color: white;
+      text-align: center;
+      align-items: center;
+      /* Safari transitionend event.propertyName === flex */
+      /* Chrome + FF transitionend event.propertyName === flex-grow */
       transition:
         font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
         flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
@@ -20,20 +45,33 @@
       font-size: 20px;
       background-size: cover;
       background-position: center;
+      flex: 1;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
     }
 
-    .panel1 { background-image: url('./Rawai-view.jpeg'); }
-    .panel2 { background-image: url('./Cocktails.jpeg'); }
-    .panel3 { background-image: url('./Big-Buddha.jpeg'); }
-    .panel4 { background-image: url('./tattoo.jpeg'); }
-    .panel5 { background-image: url('./street-light.jpeg'); }
+    .panel1 { background-image:url("./Big-Buddha.jpeg"); }
+    .panel2 { background-image:url("./Cocktails.jpeg"); }
+    .panel3 { background-image:url("./street-light.jpeg"); }
+    .panel4 { background-image:url("./Rawai-view.jpeg"); }
+    .panel5 { background-image:url("./tattoo.jpeg"); }
 
-    /* Flex Children */
+    /* Flex Items */
     .panel > * {
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+
+    .panel > *:first-child { transform: translateY(-100%); }
+    .panel.open-active > *:first-child { transform: translateY(0); }
+    .panel > *:last-child { transform: translateY(100%); }
+    .panel.open-active > *:last-child { transform: translateY(0); }
 
     .panel p {
       text-transform: uppercase;
@@ -47,15 +85,17 @@
     }
 
     .panel.open {
+      flex: 5;
       font-size: 40px;
     }
 
-    .panel.open-active > * {
-      transform: translateY(0);
+    @media only screen and (max-width: 600px) {
+      .panel p {
+        font-size: 1em;
+      }
     }
   </style>
-</head>
-<body>
+
 
   <div class="panels">
     <div class="panel panel1">
@@ -89,10 +129,12 @@
     const panels = document.querySelectorAll('.panel');
 
     function toggleOpen() {
+      console.log('Hello');
       this.classList.toggle('open');
     }
 
     function toggleActive(e) {
+      console.log(e.propertyName);
       if (e.propertyName.includes('flex')) {
         this.classList.toggle('open-active');
       }
@@ -104,4 +146,3 @@
 
 </body>
 </html>
-
